@@ -4,14 +4,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export const getFeaturedProducts = async (): Promise<Product[]> => {
-  const response = await api('/products/featured')
+  const response = await api('/products/featured',{next:{
+    //durante 1 hora os dados vão ser mantidos em cache
+    revalidate: 60 * 60
+  }})
 
   const products = await response.json()
 
   return products.featuredProducts
 }
 
+//memoizacao: é quando o react impede que a mesma requisição com os mesmos parametros seja feita duas vezes
+// se eu quero carregar dados de uma requisição que eu já fiz, para não carregar a proxima do zero com os mesmos dados eu ultilizo do cache
+
+
 export default async function Home() {
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   const [highlightedProduct, ...otherProducts] = await getFeaturedProducts()
 
   return (
@@ -58,7 +66,7 @@ export default async function Home() {
                 alt=""
                 quality={100}
               />
-              <div className="absolute bottom-28 right-10 h-12 items-center gap-2 max-width[280px] rounded-full border-zinc-500 bg-black/60 p-1 pl-5">
+              <div className="absolute bottom-28 right-10 h-12 items-center flex gap-2 max-width[280px] rounded-full border-2 border-zinc-500 bg-black/60 p-1 pl-5">
                 <span className="text-sm truncate">{product.title}</span>
                 <span className="flex h-full items-center justify-center rounded-full bg-violet-500 px-4 font-semibold">
                   {product.price.toLocaleString('pt-BR', {
