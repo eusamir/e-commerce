@@ -58,7 +58,7 @@ export default async function Home() {
                 alt=""
                 quality={100}
               />
-              <div className="absolute bottom-28 right-10 h-12 items-center gap-2 max-width[280px] rounded-full border-zinc-500 bg-black/60 p-1 pl-5">
+              <div className="absolute bottom-28 right-10 h-12 flex border-2 items-center gap-2 max-width[280px] rounded-full border-zinc-500 bg-black/60 p-1 pl-5">
                 <span className="text-sm truncate">{product.title}</span>
                 <span className="flex h-full items-center justify-center rounded-full bg-violet-500 px-4 font-semibold">
                   {product.price.toLocaleString('pt-BR', {
