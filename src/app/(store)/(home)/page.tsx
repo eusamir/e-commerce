@@ -1,9 +1,10 @@
 import { api } from '@/data/api'
 import { Product } from '@/data/types/product'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export const getFeaturedProducts = async (): Promise<Product[]> => {
+async function getFeaturedProducts(): Promise<Product[]> {
   const response = await api('/products/featured', {
     next: {
       // durante 1 hora os dados vão ser mantidos em cache
@@ -14,6 +15,9 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
   const products = await response.json()
 
   return products.featuredProducts
+}
+export const metadata: Metadata = {
+  title: 'Home',
 }
 
 // memoizacao: é quando o react impede que a mesma requisição com os mesmos parametros seja feita duas vezes
