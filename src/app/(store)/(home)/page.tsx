@@ -14,7 +14,7 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
   const products = await response.json()
 
-  return products.featuredProducts
+  return products
 }
 export const metadata: Metadata = {
   title: 'Home',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 // se eu quero carregar dados de uma requisição que eu já fiz, para não carregar a proxima do zero com os mesmos dados eu ultilizo do cache
 
 export default async function Home() {
-  await new Promise((resolve) => setTimeout(resolve, 2000))
   const [highlightedProduct, ...otherProducts] = await getFeaturedProducts()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   return (
     <div className="grid max-h-[860px] grid-cols-9 grid-rows-6 gap-6">

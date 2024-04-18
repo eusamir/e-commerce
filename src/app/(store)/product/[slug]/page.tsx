@@ -26,7 +26,7 @@ export async function generateStaticParams() {
   const products = await response.json()
   console.log(products)
 
-  return products.featuredProducts.map((product: { slug: string }) => {
+  return products.map((product: { slug: string }) => {
     return { slug: product.slug }
   })
 }
